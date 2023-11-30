@@ -90,8 +90,8 @@ public class AutonomousCENTERSTAGE extends LinearOpMode {
         rightFrontDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        //initAprilTag();
-        //initTfod();
+        initAprilTag();
+        initTfod();
 
         // Wait for the DS start button to be touched.
         telemetry.addData("DS preview on/off", "3 dots, Camera Stream");
@@ -99,34 +99,35 @@ public class AutonomousCENTERSTAGE extends LinearOpMode {
         telemetry.update();
         waitForStart();
 
+        /*
         while (opModeIsActive()) {
             move(5);
+
+            //break;
         }
 
-        /**
-         while (opModeIsActive()) {
-
-                telemetryAprilTag();
-                telemetryTfod();
-
-                // Push telemetry to the Driver Station.
-                telemetry.update();
-
-                // Save CPU resources; can resume streaming when needed.
-                if (gamepad1.dpad_down) {
-                    visionPortal.stopStreaming();
-                } else if (gamepad1.dpad_up) {
-                    visionPortal.resumeStreaming();
-                }
-
-                // Share the CPU.
-                sleep(20);
-         }
-
-
-        // Save more CPU resources when camera is no longer needed.
-        visionPortal.close();
          */
+
+        while (opModeIsActive()) {
+            telemetryAprilTag();
+            telemetryTfod();
+
+            // Push telemetry to the Driver Station.
+            telemetry.update();
+
+            // Save CPU resources; can resume streaming when needed.
+            if (gamepad1.dpad_down) {
+                visionPortal.stopStreaming();
+            } else if (gamepad1.dpad_up) {
+                visionPortal.resumeStreaming();
+            }
+
+            // Share the CPU.
+            sleep(20);
+         }
+         // Save more CPU resources when camera is no longer needed.
+        visionPortal.close();
+
     }   // end method runOpMode()
 
     /**
