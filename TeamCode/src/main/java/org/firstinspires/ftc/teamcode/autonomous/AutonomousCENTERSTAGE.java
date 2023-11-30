@@ -23,7 +23,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import java.util.List;
 
-@Autonomous(name = "AUTONOMOUS 2023-2024 CENTERSTAGE", group = "Autonomous")
+@Autonomous(name = "AUTONOMOUS2024: Blue Bottom", group = "Autonomous")
 
 public class AutonomousCENTERSTAGE extends LinearOpMode {
 
