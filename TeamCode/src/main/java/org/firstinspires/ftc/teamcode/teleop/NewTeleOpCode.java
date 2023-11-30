@@ -66,8 +66,8 @@ import com.qualcomm.robotcore.hardware.Servo;
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
 
-@TeleOp(name = "Old TeleOp", group = "Linear OpMode")
-public class BasicOpMode_Linear extends LinearOpMode {
+@TeleOp(name = "New TeleOp", group = "Linear OpMode")
+public class NewTeleOpCode extends LinearOpMode {
 
     // Declare OpMode members for each of the 4 motors.
     private ElapsedTime runtime = new ElapsedTime();
@@ -110,6 +110,8 @@ public class BasicOpMode_Linear extends LinearOpMode {
         armExtendMotor.setDirection(DcMotor.Direction.REVERSE);
 
         armRotator.setDirection(DcMotor.Direction.REVERSE);
+        armRotator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        armRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         intakeSystem.setDirection(DcMotorSimple.Direction.REVERSE);
         intakeSystem.resetDeviceConfigurationForOpMode();
@@ -129,7 +131,6 @@ public class BasicOpMode_Linear extends LinearOpMode {
         boolean wristDirection = true;
 
         int waitTime = 0;
-
 
         int timeToMove = 0;
 
@@ -208,6 +209,7 @@ public class BasicOpMode_Linear extends LinearOpMode {
             //dpad_up: intakeSystem goes up, dpad_down: intakeSystem goes down
             //maybe 2 button control for intakeSystem
 
+            /*
             //TODO: automate the arm rotator using setPosition and pray that it works
             if (gamepad2.dpad_up) {
                 armRotator.setPower(-0.5);
@@ -219,6 +221,14 @@ public class BasicOpMode_Linear extends LinearOpMode {
             if (!gamepad2.dpad_up && !gamepad2.dpad_down){
                 armRotator.setPower(0);
             }
+
+            if (gamepad2.x) {
+                armRotator.setTargetPosition(50);
+                armRotator.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                armRotator.setPower(0.5);
+            }
+
+             */
 
             //TODO: have to automate the wrist
             if (gamepad2.a) { //change the wrist because the automatic thing wasn't working
@@ -232,6 +242,7 @@ public class BasicOpMode_Linear extends LinearOpMode {
                 wrist.setPower(0);
             }
 
+            /*
             //Closes the hand
             if (gamepad2.x && waitTime == 0) {
                 if (open) {
@@ -249,6 +260,8 @@ public class BasicOpMode_Linear extends LinearOpMode {
             if (waitTime > 250)
                 waitTime = 0;
 
+             */
+
             // Send calculated power to wheels
             leftFrontDrive.setPower(leftFrontPower);
             rightFrontDrive.setPower(rightFrontPower);
@@ -264,11 +277,11 @@ public class BasicOpMode_Linear extends LinearOpMode {
             telemetry.addData("Front left/Right", "%4.2f, %4.2f", leftFrontPower, rightFrontPower);
             telemetry.addData("Back  left/Right", "%4.2f, %4.2f", leftBackPower, rightBackPower);
             telemetry.addData("waitTime: ", waitTime);
-            telemetry.addData("arm rotator: ", armRotator.getCurrentPosition());
+            telemetry.addData("arm rotator current: ", armRotator.getCurrentPosition());
             telemetry.addData("timeToMove: ", timeToMove);
             telemetry.addData("target position ", armRotator.getTargetPosition());
             telemetry.addData("ArmRotatorPower", armRotator.getPower());
             telemetry.addData("dPad Up", gamepad2.dpad_up);
             telemetry.update();
         }
-}}
+    }}
