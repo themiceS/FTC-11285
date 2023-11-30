@@ -170,9 +170,18 @@ public class NewTeleOpCode extends LinearOpMode {
             double armPower = arm;
             // Combine the joystick requests for each axis-motion to determine each wheel's power.
             // Set up a variable for each drive wheel to save the power level for telemetry.
+
+            /* OLD CODE OLD CODE OLD CODE OLD CODE OLD CODE
             double leftFrontPower  = (axial - lateral + yaw) * speedMultiplier;
-            double rightFrontPower = (axial - lateral - yaw)* speedMultiplier;
+            double rightFrontPower = (axial - lateral - yaw) * speedMultiplier;
             double leftBackPower   = (axial + lateral + yaw) * speedMultiplier;
+            double rightBackPower  = (axial + lateral - yaw) * speedMultiplier;
+
+             */
+
+            double leftBackPower  = (axial - lateral + yaw) * speedMultiplier;
+            double rightFrontPower = (axial - lateral - yaw) * speedMultiplier;
+            double leftFrontPower   = (axial + lateral + yaw) * speedMultiplier;
             double rightBackPower  = (axial + lateral - yaw) * speedMultiplier;
 
             // Normalize the values so no wheel power exceeds 100%

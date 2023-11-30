@@ -80,8 +80,18 @@ public class AutonomousCENTERSTAGE extends LinearOpMode {
         rightBackDrive.setDirection(DcMotor.Direction.FORWARD);
         armExtendMotor.setDirection(DcMotor.Direction.REVERSE);
 
-        initAprilTag();
-        initTfod();
+        leftFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightBackDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftBackDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        leftFrontDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightFrontDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        //initAprilTag();
+        //initTfod();
 
         // Wait for the DS start button to be touched.
         telemetry.addData("DS preview on/off", "3 dots, Camera Stream");
@@ -89,11 +99,12 @@ public class AutonomousCENTERSTAGE extends LinearOpMode {
         telemetry.update();
         waitForStart();
 
-        if (opModeIsActive()) {
-            move(5.0);
+        while (opModeIsActive()) {
+            move(5);
+        }
 
-            /**
-            while (opModeIsActive()) {
+        /**
+         while (opModeIsActive()) {
 
                 telemetryAprilTag();
                 telemetryTfod();
@@ -110,13 +121,12 @@ public class AutonomousCENTERSTAGE extends LinearOpMode {
 
                 // Share the CPU.
                 sleep(20);
-             }
-             */
-        }
+         }
+
 
         // Save more CPU resources when camera is no longer needed.
         visionPortal.close();
-
+         */
     }   // end method runOpMode()
 
     /**
@@ -300,20 +310,33 @@ public class AutonomousCENTERSTAGE extends LinearOpMode {
 
     }   // end method telemetryTfod()
 
-    private void move(double distanceft) {
+    private void move(int distanceft) {
+        /*
         leftFrontDrive.setTargetPosition(leftFrontDrive.getCurrentPosition() + 500);
         leftBackDrive.setTargetPosition(leftBackDrive.getCurrentPosition() + 500);
         rightFrontDrive.setTargetPosition(rightFrontDrive.getCurrentPosition() + 500);
         rightBackDrive.setTargetPosition(rightBackDrive.getCurrentPosition() + 500);
-        
+         */
+
+        leftFrontDrive.setTargetPosition(538 * distanceft);
+        rightFrontDrive.setTargetPosition(538 * distanceft);
+        rightBackDrive.setTargetPosition(538 * distanceft);
+        leftBackDrive.setTargetPosition(538 * distanceft);
+
         leftFrontDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rightBackDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rightFrontDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         leftBackDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        leftFrontDrive.setPower(0.1);
-        rightBackDrive.setPower(0.1);
-        rightFrontDrive.setPower(0.1);
-        leftBackDrive.setPower(0.1);
+        leftFrontDrive.setPower(0.75);
+        rightBackDrive.setPower(0.75);
+        rightFrontDrive.setPower(0.75);
+        leftBackDrive.setPower(0.75);
+
+        telemetry.addData("Left Front Drive", leftFrontDrive.getCurrentPosition());
+        telemetry.addData("Left Back Drive", leftBackDrive.getCurrentPosition());
+        telemetry.addData("Right Front Drive", rightFrontDrive.getCurrentPosition());
+        telemetry.addData("Right Back Drive", rightBackDrive.getCurrentPosition());
+        telemetry.update();
     }
 }   // end class
