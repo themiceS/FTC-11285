@@ -90,7 +90,7 @@ public class AutonomousCENTERSTAGE extends LinearOpMode {
         rightFrontDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        initAprilTag();
+        //initAprilTag();
         initTfod();
 
         // Wait for the DS start button to be touched.
@@ -109,18 +109,20 @@ public class AutonomousCENTERSTAGE extends LinearOpMode {
          */
 
         while (opModeIsActive()) {
-            telemetryAprilTag();
+            //telemetryAprilTag();
             telemetryTfod();
 
             // Push telemetry to the Driver Station.
             telemetry.update();
 
             // Save CPU resources; can resume streaming when needed.
+            /*
             if (gamepad1.dpad_down) {
                 visionPortal.stopStreaming();
             } else if (gamepad1.dpad_up) {
                 visionPortal.resumeStreaming();
             }
+             */
 
             // Share the CPU.
             sleep(20);
