@@ -323,7 +323,7 @@ public class AutonomousCENTERSTAGE extends LinearOpMode {
         rightBackDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rightFrontDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         leftBackDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        
+
         leftFrontDrive.setPower(0.75);
         rightBackDrive.setPower(0.75);
         rightFrontDrive.setPower(0.75);

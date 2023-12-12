@@ -80,8 +80,8 @@ public class NewTeleOpCode extends LinearOpMode {
     private DcMotor armExtendMotor = null;
 
     private DcMotor armRotator = null;
-    private CRServo wrist = null;
-    private CRServo hand = null;
+
+    private Servo claw = null;
 
     @Override
     public void runOpMode() {
@@ -99,8 +99,7 @@ public class NewTeleOpCode extends LinearOpMode {
 
         intakeSystem = hardwareMap.get(CRServo.class, "outputServo");
 
-        wrist = hardwareMap.get(CRServo.class, "wrist");
-        hand = hardwareMap.get(CRServo.class, "hand");
+        claw = hardwareMap.get(Servo.class, "claw");
 
         leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
         leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
@@ -115,8 +114,6 @@ public class NewTeleOpCode extends LinearOpMode {
 
         intakeSystem.setDirection(DcMotorSimple.Direction.REVERSE);
         intakeSystem.resetDeviceConfigurationForOpMode();
-
-        hand.setDirection(DcMotorSimple.Direction.FORWARD);
 
         // Wait for the game to start (driver presses PLAY)
         telemetry.addData("Status", "Initialized");
@@ -134,7 +131,6 @@ public class NewTeleOpCode extends LinearOpMode {
 
         int timeToMove = 0;
 
-        wrist.setPower(0);
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
@@ -198,27 +194,13 @@ public class NewTeleOpCode extends LinearOpMode {
                 armPower /= max;
             }
 
-            /*if (gamepad2.a) {
-                if (armRotator.getCurrentPosition() < 5) {
-                    armRotator.setTargetPosition(50);
-                    armRotator.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    armRotator.setPower(0.03);
-                } else {
-                    //537.7
-                    armRotator.setTargetPosition(0);
-                    armRotator.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    armRotator.setPower(0.03);
-                }
-            }
-             */
-
             //x: arm rotator goes up not completely, y: arm rotator goes up completely
             //a: wrist goes up and down based on current position
             //b: claw
             //dpad_up: intakeSystem goes up, dpad_down: intakeSystem goes down
             //maybe 2 button control for intakeSystem
 
-            /*
+
             //TODO: automate the arm rotator using setPosition and pray that it works
             if (gamepad2.dpad_up) {
                 armRotator.setPower(-0.5);
@@ -231,45 +213,6 @@ public class NewTeleOpCode extends LinearOpMode {
                 armRotator.setPower(0);
             }
 
-            if (gamepad2.x) {
-                armRotator.setTargetPosition(50);
-                armRotator.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                armRotator.setPower(0.5);
-            }
-
-             */
-
-            //TODO: have to automate the wrist
-            if (gamepad2.a) { //change the wrist because the automatic thing wasn't working
-                wrist.setPower(-0.5);
-            }
-            else if (gamepad2.b) {
-                wrist.setPower(0.5);
-            }
-
-            if (!gamepad2.a && !gamepad2.b) {
-                wrist.setPower(0);
-            }
-
-            /*
-            //Closes the hand
-            if (gamepad2.x && waitTime == 0) {
-                if (open) {
-                    hand.setPower(-0.27); //-0.27
-                    open = false;
-                } else {
-                    hand.setPower(0.3);
-                    open = true;
-                }
-                waitTime++;
-            }
-
-            if (waitTime != 0)
-                waitTime++;
-            if (waitTime > 250)
-                waitTime = 0;
-
-             */
 
             // Send calculated power to wheels
             leftFrontDrive.setPower(leftFrontPower);
