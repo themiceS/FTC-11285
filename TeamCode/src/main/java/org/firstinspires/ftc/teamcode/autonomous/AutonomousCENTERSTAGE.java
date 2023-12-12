@@ -111,22 +111,20 @@ public class AutonomousCENTERSTAGE extends LinearOpMode {
 
         while (opModeIsActive()) {
             //telemetryAprilTag();
-            telemetryTfod();
+            double xPos = -1;
+            while (true) {
+                xPos = telemetryTfod();
+                if (xPos != -1) {
+                    break;
+                }
+                // Push telemetry to the Driver Station.
+                telemetry.update();
 
-            // Push telemetry to the Driver Station.
-            telemetry.update();
-
-            // Save CPU resources; can resume streaming when needed.
-            /*
-            if (gamepad1.dpad_down) {
-                visionPortal.stopStreaming();
-            } else if (gamepad1.dpad_up) {
-                visionPortal.resumeStreaming();
+                // Share the CPU.
+                sleep(20);
             }
-             */
 
-            // Share the CPU.
-            sleep(20);
+            move(2);
          }
          // Save more CPU resources when camera is no longer needed.
         visionPortal.close();
@@ -296,7 +294,7 @@ public class AutonomousCENTERSTAGE extends LinearOpMode {
     /**
      * Add telemetry about TensorFlow Object Detection (TFOD) recognitions.
      */
-    private void telemetryTfod() {
+    private double telemetryTfod() {
 
         List<Recognition> currentRecognitions = tfod.getRecognitions();
         telemetry.addData("# Objects Detected", currentRecognitions.size());
@@ -310,8 +308,10 @@ public class AutonomousCENTERSTAGE extends LinearOpMode {
             telemetry.addData("Image", "%s (%.0f %% Conf.)", recognition.getLabel(), recognition.getConfidence() * 100);
             telemetry.addData("- Position", "%.0f / %.0f", x, y);
             telemetry.addData("- Size", "%.0f x %.0f", recognition.getWidth(), recognition.getHeight());
-        }   // end for() loop
 
+            return x;
+        }   // end for() loop
+        return -1;
     }   // end method telemetryTfod()
     private void turnLeft(double angle) {
         leftFrontDrive.setTargetPosition((int)(-538 * angle));
