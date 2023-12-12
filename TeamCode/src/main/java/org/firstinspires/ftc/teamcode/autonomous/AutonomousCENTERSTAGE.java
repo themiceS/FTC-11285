@@ -125,6 +125,8 @@ public class AutonomousCENTERSTAGE extends LinearOpMode {
             }
 
             move(2);
+            sleep(500);
+            break;
          }
          // Save more CPU resources when camera is no longer needed.
         visionPortal.close();
