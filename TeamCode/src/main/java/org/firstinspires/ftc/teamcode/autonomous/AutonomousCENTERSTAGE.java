@@ -100,14 +100,14 @@ public class AutonomousCENTERSTAGE extends LinearOpMode {
         telemetry.update();
         waitForStart();
 
-        /*
+
         while (opModeIsActive()) {
-            move(5);
+            move(2);
 
             //break;
         }
 
-         */
+
 
         while (opModeIsActive()) {
             //telemetryAprilTag();
