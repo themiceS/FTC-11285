@@ -114,16 +114,6 @@ public class AutonomousCENTERSTAGE extends LinearOpMode {
             while (telemetryTfod().size() == 0) {
                 // Push telemetry to the Driver Station.
                 telemetry.update();
-
-                // Save CPU resources; can resume streaming when needed.
-            /*
-            if (gamepad1.dpad_down) {
-                visionPortal.stopStreaming();
-            } else if (gamepad1.dpad_up) {
-                visionPortal.resumeStreaming();
-            }
-             */
-
                 // Share the CPU.
                 sleep(20);
             }
