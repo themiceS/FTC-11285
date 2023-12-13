@@ -102,8 +102,8 @@ public class AutonomousCENTERSTAGE extends LinearOpMode {
 
 
         while (opModeIsActive()) {
-            move(2);
-
+            //move(2);
+            strafe(0.5);
             //break;
         }
 
@@ -329,6 +329,22 @@ public class AutonomousCENTERSTAGE extends LinearOpMode {
         rightFrontDrive.setPower(0.75);
         leftBackDrive.setPower(0.75);
     }
+    public void strafe(double distance) {
+        leftFrontDrive.setTargetPosition((int)(-538 * distance));
+        rightFrontDrive.setTargetPosition((int)(538 * distance));
+        rightBackDrive.setTargetPosition((int)(-538 * distance));
+        leftBackDrive.setTargetPosition((int)(538 * distance));
+
+        leftFrontDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightBackDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightFrontDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        leftBackDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        leftFrontDrive.setPower(0.5);
+        rightBackDrive.setPower(0.5);
+        rightFrontDrive.setPower(0.5);
+        leftBackDrive.setPower(0.5);
+    }
     private void move(int distanceft) {
         /*
         leftFrontDrive.setTargetPosition(leftFrontDrive.getCurrentPosition() + 500);
@@ -347,10 +363,10 @@ public class AutonomousCENTERSTAGE extends LinearOpMode {
         rightFrontDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         leftBackDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        leftFrontDrive.setPower(0.75);
-        rightBackDrive.setPower(0.75);
-        rightFrontDrive.setPower(0.75);
-        leftBackDrive.setPower(0.75);
+        leftFrontDrive.setPower(0.5);
+        rightBackDrive.setPower(0.5);
+        rightFrontDrive.setPower(0.5);
+        leftBackDrive.setPower(0.5);
 
         telemetry.addData("Left Front Drive", leftFrontDrive.getCurrentPosition());
         telemetry.addData("Left Back Drive", leftBackDrive.getCurrentPosition());
